@@ -1,0 +1,173 @@
+<!--
+
+  Copyright (c) 2003 by Emmanuel Benoist, Eric Dubuis, and Marcel Pfahrer,
+  BFH-TI Biel-Bienne.
+  All rights reserved.
+  
+-->
+
+<project name="Tomcat Hello World JSP Application" default="all" basedir=".">
+
+
+
+<!-- ===================== Property Definitions =========================== -->
+
+
+<!--
+
+  These properties generally define file and directory names (or paths) that
+  affect where the build process stores its outputs.
+
+  app.name             Base name of this application, used to
+                       construct filenames and directories.
+                       Defaults to "myapp".
+
+  app.version          Version identifier for this application.
+
+  build.home           The directory into which the "prepare" and
+                       "compile" targets will generate their output.
+                       Defaults to "build".
+
+  catalina.home        The directory in which you have installed
+                       a binary distribution of Tomcat 4.
+
+  catalina.base        The directory in which you instance of Tomcat
+                       finds its configuration, etc..  This will
+                       be used by the "deploy" target.
+
+  deploy.home          The name of the directory into which the
+                       deployment hierarchy will be created, and into
+                       which the build directory will be copied.
+                       Defaults to "${catalina.base}/webapps/${app.name}".
+
+  dist.home            The name of the base directory in which
+                       distribution files are created.
+                       Defaults to "dist".
+
+-->
+
+<!-- <property file="${user.home}/.ant-global.properties"/> -->
+<property file="../../build.properties"/>
+<property name="app.name"      value="testJSP"/>
+<property name="app.version"   value="1.0"/>
+<property name="build.home"    value="build"/>
+<!-- The following properties must be defined in
+     the ../../../build.properties file. -->
+ <property name="catalina.home" value="/opt/apache-tomcat-6.0.29"/>
+<property name="catalina.base" value="/opt/apache-tomcat-6.0.29"/>
+<property name="deploy.home"   value="${catalina.base}/webapps/${app.name}"/>
+<property name="dist.home"     value="dist"/>
+
+
+<!-- ==================== Compilation Classpath =========================== -->
+
+<path id="compile.classpath">
+
+  <!-- Include all JAR files that will be included in /WEB-INF/lib -->
+  <!-- *** CUSTOMIZE HERE AS REQUIRED BY YOUR APPLICATION *** -->
+  <!--
+    <pathelement location="${foo.jar}"/>
+  -->
+
+  <!-- Include all elements that Tomcat exposes to applications -->
+  <pathelement location="${catalina.home}/common/classes"/>
+  <fileset dir="${catalina.home}/common/lib">
+    <include name="*.jar"/>
+  </fileset>
+  <pathelement location="${catalina.home}/classes"/>
+  <fileset dir="${catalina.home}/lib">
+    <include name="*.jar"/>
+  </fileset>
+
+</path>
+
+
+<!-- ==================== All Target ====================================== -->
+
+  <target name="all" depends="clean, prepare"
+   description="Clean build and dist"/>
+
+
+<!-- ==================== Clean Target ==================================== -->
+
+<!--
+
+  The "clean" target deletes any previous "build" and "dist" directories,
+  so that you can be ensured the application can be built from scratch.
+
+-->
+
+<target name="clean"
+   description="Delete old build directory">
+  <delete dir="${build.home}"/>
+  <delete dir="${dist.home}"/>
+</target>
+
+
+
+<!-- ==================== Deploy Target =================================== -->
+
+<!--
+
+  The "deploy" target copies the contents of the build directory into a
+  location required by our servlet container, and picks up any external
+  dependencies along the way.  AFter restarting the servlet container, you
+  can now test your web application.
+
+-->
+
+<target name="deploy" depends="all"
+   description="Deploy application to container">
+
+  <!-- Copy the contents of the build directory -->
+  <mkdir     dir="${deploy.home}"/>
+  <copy    todir="${deploy.home}">
+    <fileset dir="${build.home}"/>
+  </copy>
+
+</target>
+
+
+<!-- ==================== Undeploy Target =============================== -->
+
+<!--
+
+  The "undeploy" target deletes any previous "deploy" directory,
+  so that you can be ensured the application can be deployed from scratch.
+
+-->
+
+<target name="undeploy"
+   description="Delete old deploy directory">
+  <delete dir="${deploy.home}"/>
+</target>
+
+
+
+
+<!-- ==================== Prepare Target ================================== -->
+
+<!--
+
+  The "prepare" target is used to create the "build" destination directory,
+  and copy the static contents of your web application to it.  If you need
+  to copy static files from external dependencies, you can customize the
+  contents of this task.
+
+  Normally, this task is executed indirectly when needed.
+
+-->
+
+<target name="prepare">
+
+  <!-- Create build directory and copy static content -->
+  <mkdir  dir="${build.home}"/>
+  <copy todir="${build.home}">
+    <fileset dir="WebContent"/>
+  </copy>
+
+</target>
+
+
+
+</project>
