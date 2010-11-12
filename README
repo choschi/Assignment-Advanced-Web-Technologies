@@ -1,2 +1,3 @@
-5.11.10 initiated git repo and eclipse project
-5.11.10 keep in mind to change the build file according to your tomcat setup
+05.11.10 initiated git repo and eclipse project
+05.11.10 keep in mind to change the build file according to your tomcat setup
+12.11.10 removed the dum jsp stuff and put the jsf example 2.0 as base
