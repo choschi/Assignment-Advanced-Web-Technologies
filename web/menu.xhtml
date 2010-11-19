@@ -1,0 +1,19 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html">
+<f:view contentType="text/html; charset=iso-8859-1"/>
+<head><title>Menu</title></head>
+<body>
+    <h:form id="responseform">
+    <h:graphicImage id="waveImg" url="#{resource['bfh.jpg']}" />
+    <h2>Hello with JSF links &lt;h:commandLink&gt;</h2>
+      <h:commandLink id="hello" value="Hello World" action="hello"
+/><br />
+      <h:commandLink id="helloBoss" value="Hello Boss"
+action="helloBoss" /><br />
+      <h:commandLink id="list" value="View List" action="list" />
+  </h:form>
+</body>
+</html>

@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"      
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:t="http://myfaces.apache.org/tomahawk">
+
+<f:loadBundle basename="mylib.Messages" var="messages" />
+
+    <f:view contentType="text/html"/>
+    <h:head>
+        <title>Test of a list!</title>
+    </h:head>
+    <h:body bgcolor="white">
+        <h2>Displays the content of a list</h2>
+#{messages.title}
+        <h:form id="helloForm" >
+
+<t:dataTable id="dataTable" 
+styleClass="scrollerTable" var="module" value="#{dataBean.data}" rows="3">
+<h:column>
+	<f:facet name="header">
+	<h:outputText value="#{messages.tableHeaderRowNumber}" />
+	</f:facet>
+	<h:outputText value="#{module.number}" />
+</h:column>
+<h:column>
+	<f:facet name="header">
+	<h:outputText value="#{messages.tableHeaderRowDescription}" />
+	</f:facet>
+	<h:outputText value="#{module.name}" />
+</h:column>
+</t:dataTable>
+
+
+		<h:panelGrid columns="1" styleClass="scrollerTable2"
+			columnClasses="standardTable_ColumnCentered">
+
+			<t:dataScroller id="pagination" for="dataTable" fastStep="20"
+				pageCountVar="pageCount" pageIndexVar="pageIndex"
+				styleClass="scroller" paginator="true" paginatorMaxPages="14"
+				paginatorTableClass="paginator"
+				paginatorActiveColumnStyle="font-weight:bold;">
+				
+				<f:facet name="first">
+<h:graphicImage id="first" url="#{resource['arrow-first.gif']}"
+border="1" alt="First"/>		
+				</f:facet>
+				
+				<f:facet name="last">
+					<t:graphicImage id="last"
+					url="#{resource['arrow-last.gif']}"
+					border="1"  alt="Last"/>
+				</f:facet>
+				
+				<f:facet name="previous">
+					<t:outputText value="-" />
+				</f:facet>
+				
+				<f:facet name="next">
+					<t:outputText value="+" />
+				</f:facet>
+				
+				<f:facet name="fastforward">
+					<t:outputText value="++" />
+				</f:facet>
+				
+				<f:facet name="fastrewind">
+				<t:outputText value="--" />
+				</f:facet>
+				
+			</t:dataScroller>
+			
+			<t:dataScroller id="paginationSummary" for="dataTable"
+				pageCountVar="pageCount" pageIndexVar="pageIndex">
+				
+				<h:outputFormat value="page #{pageIndex} of #{pageCount}"
+					styleClass="standard" />
+					
+			</t:dataScroller>
+			
+		</h:panelGrid>
+
+         <h:commandLink id="submit" action="menu" value="Back"/>
+        </h:form>
+    </h:body>
+</html>
