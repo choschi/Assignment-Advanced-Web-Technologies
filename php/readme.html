@@ -1,0 +1,98 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<style>
+*{
+	font-family:Verdana, Arial, Helvetica, sans-serif;
+	font-size:100%;
+	line-height:130%;
+}
+body{
+	padding-left:80px;
+	padding-right:80px;
+}
+h1{
+	font-weight:bold;
+	font-size:120%;
+	margin-bottom:30px;
+	margin-top:40px;
+}
+h2{
+	font-weight:bold;
+	font-size:100%;
+	margin-bottom:20px;
+	margin-top:40px;
+}
+p{
+	max-width:800px;	
+}
+ul{
+	list-style-type:lower-roman;	
+}
+</style>
+<title>readme for awt.choschi.com</title>
+</head>
+<body>
+<h1>Aufbau der API</h1>
+<p>Es handelt sich um eine REST-like API. Sie folgt lose und oberflächlich dem was man unter einer REST API versteht: <a href="http://de.wikipedia.org/wiki/Representational_State_Transfer">REST@Wikipedia</a>. Man kann damit nur die Daten auslesen, die in der vom Prof zur Verfügung gestellten DB vorhanden sind.</p>
+<h2>Basis-URL [BASEURL]</h2>
+<p>http://awt.choschi.com/</p>
+<h2>Output-Format [FORMAT]</h2>
+<p>Das Output-Format definiert in welcher Form die Daten zurückgegeben werden. Requests ohne Output-Format liefern einen 404 Error.<br />Folgende Möglichkeiten gibt es zur Zeit:</p>
+<ul>
+<li> xml: Gibt die Daten im xml-Format zurück</li>
+</ul>
+<p>Generell sind alle Outputs UTF-8 codiert.</p>
+<h2>Output-Klasse [KLASSE]</h2>
+<p>Die Output-Klasse definiert welche Art von Daten abgerufen werden soll. Requests ohne Output-Klasse liefern einen 404 Error.<br />Folgende Möglichkeiten gibt es zur Zeit:</p>
+<ul>
+<li> module: Liefert Resultate aus dem Modul Bereich</li>
+<li> class: Liefert Resultate aus dem Klassenbereich</li>
+<li> user: Schreibt und Liest Benutzer Daten</li>
+</ul>
+<h2>For-Klasse [FOR]</h2>
+<p>Die For-Klasse ist eine Output-Klasse, die die Selektion einer anderen Output-Klasse einschränkt. Das mag etwas kompliziert klingen aber ist eigentlich ganz einfach, schau dir dazu die Besipiele unten an. ACHTUNG: auf ein [FOR] muss immer ein[ID] folgen, sonst wird eine leere Liste zurückgegeben.</p>
+<h2>id [ID]</h2>
+<p> Id ermöglicht es einen bestimmten Eintrag aus der Output-Klasse abzufragen. Dieses Feld ist optional, wird keine id angegeben, so wird eine Liste mit allen Elementen der Klasse zurückgeliefert, sonst eine Liste mit nur dem id Element. Ist die Id nicht vorhanden wird eine leere Liste zurückgegeben.</p>
+<h2>action [ACTION]</h2>
+<p> Aktionen werden benötigt um Schreibbefehle genauer zu umschreiben. Je nach Aktion werden Parameter verlangt, diese sind in den Beispielen genauer erörtert. Momentan gibt es folgende Möglichkeiten:</p>
+<ul>
+<li> create: Erzeugt einen neuen Eintrag in der Datenbank </li>
+</ul>
+<h2>Possible Requests</h2>
+<ul style="list-style-type:none">
+<li>BASEURL/FORMAT/KLASSE/</li>
+<li>BASEURL/FORMAT/KLASSE/ID/</li>
+<li>BASEURL/FORMAT/KLASSE/FOR/ID/</li>
+</ul>
+<h2>Bespiel Requests</h2>
+<p>Dies ist eine Liste aller Requests zu denen die API eine Antwort lieferen kann.</p>
+<ul>
+<li>Ruft eine Liste aller Module im xml-Format ab: <a href="http://awt.choschi.com/xml/module/">http://awt.choschi.com/xml/module/</a></li>
+<li>Ruft die Daten eines Moduls im xml-Format ab (z.B. 34): <a href="http://awt.choschi.com/xml/module/34/">http://awt.choschi.com/xml/module/34/</a></li>
+<li>Ruft eine Liste aller Klassen im xml-Format ab: <a href="http://awt.choschi.com/xml/class/">http://awt.choschi.com/xml/class/</a></li>
+<li>Ruft die Daten einer Klasse im xml-Format ab (z.B. 32): <a href="http://awt.choschi.com/xml/class/32/">http://awt.choschi.com/xml/class/32/</a></li>
+<li>Liefert alle Module für die Klasse mit ID id (z.B. 32): <a href="http://awt.choschi.com/xml/module/class/32/">http://awt.choschi.com/xml/module/class/32/</a></li>
+<li>Liefert alle Module für die Klasse mit ID id (z.B. 32): <a href="http://awt.choschi.com/xml/module/class/32/">http://awt.choschi.com/xml/module/class/32/</a></li>
+<li>Liefert alle Klassen für das Modul mit ID id (z.B. 34): <a href="http://awt.choschi.com/xml/class/module/34/">http://awt.choschi.com/xml/class/module/34/</a></li>
+</ul>
+<h2>Beispiele für Speicher-Requests</h2>
+<h3>Einen Benutzer erstellen</h3>
+<p>Eigentlich müsste man ja die ganze Geschichte noch sichern usw. doch ich denke in diesem Projekt geht es nicht um Sicherheit deshalb habe ich folgenden einfachen Request zum Benutzer kreieren definiert:<br />
+<a href="http://awt.choschi.com/xml/user/create/username/password/">http://awt.choschi.com/xml/user/create/username/password/</a><br />
+Im Erfolgsfall kriegt ihr eine Liste von Benutzern zurück mit einem Eintrag, dem Benutzer den ihre gerade erstellt habt. Sollte allerdings der Benutzername schon existieren kriegt ihr einen Error zurück. Username und Password dürfen maimal 50 Zeichen enthalten.</p>
+<h1>Support</h1>
+<p>Die ganze API ist noch im Aufbau und sollte bis bald die nötigen Möglichkieten bieten, damit man sie auch fürs Projekt sinnvoll nutzen kann.</p>
+<p>Sie wird ferner "as is" und ohne Funktionsgarantie angeboten, sollte aber die meiste Zeit funktionieren, da wir in unserer Gruppe für die Arbeit auch darauf basieren.</p>
+<p>Performance issues sollte es keine geben, der Server wird von einer Hosting-Firma betrieben.</p>
+<p>Change Requests, Issue Reporting etc. bitte per Mail an mich: <a href="mailto:ischc2@bfh.ch">ischc2@bfh.ch</a>. Ihr dürft mir in Deutsch, Französisch und Englisch schreiben, Antwort gibt's aber nur in Deutsch.</p>
+<h2>Change Log</h2>
+<ul style="list-style-type:none">
+<li>07.11.2010 14:55 initialised</li>
+<li>07.11.2010 15:35 added support for [KLASSE] class</li>
+<li>07.11.2010 15:55 added support for [FOR] class</li>
+<li>12.11.2010 15:22 added support for storing users to db</li>
+</ul>
+</body>
+</html>
