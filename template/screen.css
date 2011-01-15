@@ -1,0 +1,144 @@
+/* CSS Document */
+
+* {
+	margin:0px;
+	padding:0px;
+	border:none;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+body{
+	font-size:100%;
+	text-align:center;
+	background:#e6e6FF;
+}
+
+.loginContainer{
+	margin:0 auto;
+	width:400px;
+	height:200px;
+	margin-top:200px;
+	text-align:center;
+	padding-top:100px;
+}
+
+.loginContainer table{
+	text-align:left;
+	margin:0 auto;
+	border:1px solid #808080;
+}
+
+.loginContainer td {
+	padding:5px;
+	min-width:150px;
+	padding-top:8px;
+	padding-bottom:8px;
+}
+
+.loginContainer input {
+	padding:2px;
+	font-size:100%;
+	background:#cccccc;
+	font-style:italic;
+}
+
+.loginContainer input[type="submit"] {
+	padding:4px;
+	font-size:100%;
+	background:#ccccff;
+	border:2px solid gray;
+	font-style:none;
+	font-weight:bold;
+	width:100%;
+	font-style:normal;
+}
+
+.container {
+	margin:0 auto;
+	width:1000px;
+	height:600px;
+	margin-top:50px;
+	text-align:left;
+}
+
+.container h1{
+	text-align:center;
+	margin-bottom:20px;	
+}
+
+.container div {
+	background:#ccccff;
+	border:2px solid gray;	
+}
+
+
+.container .clear{
+	clear:both;
+	width:100%;
+	height:0px;
+}
+
+.moduleSelector{
+	float:right;
+	height:90px;
+	width:590px;
+	padding-top:10px;
+}
+
+.moduleSelector thead td{
+	font-weight:bold;	
+}
+
+.moduleSelector td{
+	padding:2px;	
+}
+
+.moduleSelector select{
+	padding:2px;
+	height:24px;
+	font-size:100%;
+	font-weight:bold;
+	background:#cccccc;
+}
+
+.class select{
+	min-width:80px;	
+}
+
+.module select{
+	min-width:440px;	
+}
+
+.nameDisplay {
+	float:left;
+	width:370px;
+	height:80px;
+	padding:10px;
+	font-weight:bold;
+}
+
+.moduleDisplay, .courses{
+	width:100%-2px;
+	min-height:400px;
+	margin-top:14px;
+}
+
+.moduleDisplay table, .courses table{
+	margin:10px;
+	width:976px;	
+}
+
+.moduleDisplay thead tr, .courses thead tr{
+	background:#bbbbff;
+	font-weight:bold;
+}
+
+.moduleDisplay tbody tr:nth-child(even), .courses tbody tr:nth-child(even){
+	background:#bbbbff;
+}
+
+.moduleDisplay td, .courses td{
+	padding:2px;
+	vertical-align:middle;
+	height:32px;
+}
